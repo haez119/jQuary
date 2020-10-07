@@ -22,8 +22,10 @@ public class GetProductListServlet extends HttpServlet {
 
   // json 구조 => "[{\"item_no\":\"bean_001\"}]";
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
+		
 		ProductDAO dao = new ProductDAO();
 		List<ProductVO> list = dao.getProductList();
 		// [{"item_no":"bean_001", "item":"콜롬비아 원두"},{},{}]

@@ -18,8 +18,8 @@ public class PostProductServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8"); // 매개값을???
+		response.setCharacterEncoding("utf-8"); // 결과값을 한글로
 		response.setContentType("text/html;charset=UTF-8");
 		
 		ProductDAO dao = new ProductDAO();

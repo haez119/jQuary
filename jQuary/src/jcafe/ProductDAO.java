@@ -19,6 +19,27 @@ public class ProductDAO {
 	public ProductDAO() {
 		conn = ConnectDB.getConnection();
 	}
+	
+	// itemNo 기준으로 삭제
+	public void deleteProduct(String itemNo) {
+		String sql ="delete product where item_no = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, itemNo);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	// 한 건 입력
 	public void insertProduct(ProductVO vo) {
 		String sql = "insert into product (item_no, item, category, price, link , content, like_it, alt, image) " 

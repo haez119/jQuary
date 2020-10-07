@@ -10,31 +10,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
-
-@WebServlet("/GetProductListJsonServlet")
-public class GetProductListJsonServlet extends HttpServlet {
+@WebServlet("/GetProductDataTable")
+public class GetProductDataTable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
    
-    public GetProductListJsonServlet() {
+    public GetProductDataTable() {
         super();
+       
     }
 
-    
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("utf-8"); 
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
 		ProductDAO dao = new ProductDAO();
 		List<ProductVO> list = dao.getProductList();
-		response.getWriter().append(JSONArray.fromObject(list).toString());
+		
+		// {"data": [{},{},{}]};
+		JSONArray ary = new JSONArray();
+		for(ProductVO vo : list) {
+			ary.add(vo);
+		}
+		
+		JSONObject obj = new JSONObject();
+		obj.put("data", ary);
+		response.getWriter().append(obj.toString());
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		doGet(request, response);
 	}
 
